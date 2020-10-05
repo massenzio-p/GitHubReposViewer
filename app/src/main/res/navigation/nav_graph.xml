@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/reposListFragment">
+
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="massenziop.githubreposviewer.ui.authentication.AuthenticationFragment"
+        android:label="AuthenticationFragment" />
+    <fragment
+        android:id="@+id/repoCardFragment"
+        android:name="massenziop.githubreposviewer.ui.repoCard.RepoCardFragment"
+        android:label="RepoCardFragment" />
+    <fragment
+        android:id="@+id/reposListFragment"
+        android:name="massenziop.githubreposviewer.ui.repos_list.ReposListFragment"
+        android:label="ReposListFragment" >
+        <action
+            android:id="@+id/action_reposListFragment_to_repoCardFragment"
+            app:destination="@id/repoCardFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_authenticationFragment"
+        app:destination="@id/authenticationFragment"
+        app:enterAnim="@anim/fragment_close_enter"
+        app:exitAnim="@anim/fragment_close_exit"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit"
+        app:popUpToInclusive="true" />
+</navigation>

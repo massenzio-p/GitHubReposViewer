@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Toolbar
+            android:id="@+id/repos_pager_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize">
+
+            <AutoCompleteTextView
+                android:id="@+id/repos_pager_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </Toolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/repos_pager_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/repos_pager_toolbar" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/repos_pager_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/repos_pager_tab_layout" />
+    </RelativeLayout>
+</layout>
