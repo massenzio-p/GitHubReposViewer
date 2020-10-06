@@ -4,10 +4,6 @@
     app:startDestination="@id/reposListFragment">
 
     <fragment
-        android:id="@+id/authenticationFragment"
-        android:name="massenziop.githubreposviewer.ui.authentication.AuthenticationFragment"
-        android:label="AuthenticationFragment" />
-    <fragment
         android:id="@+id/repoCardFragment"
         android:name="massenziop.githubreposviewer.ui.repoCard.RepoCardFragment"
         android:label="RepoCardFragment" />
@@ -24,13 +20,4 @@
             app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpToInclusive="true" />
     </fragment>
-    <action
-        android:id="@+id/action_global_authenticationFragment"
-        app:destination="@id/authenticationFragment"
-        app:enterAnim="@anim/fragment_close_enter"
-        app:exitAnim="@anim/fragment_close_exit"
-        app:launchSingleTop="true"
-        app:popEnterAnim="@anim/fragment_fade_enter"
-        app:popExitAnim="@anim/fragment_fade_exit"
-        app:popUpToInclusive="true" />
 </navigation>

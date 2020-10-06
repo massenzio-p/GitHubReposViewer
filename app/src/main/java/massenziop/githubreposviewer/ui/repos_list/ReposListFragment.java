@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import massenziop.githubreposviewer.R;
 import massenziop.githubreposviewer.databinding.ReposListPagerBinding;
 
 public class ReposListFragment extends Fragment {
