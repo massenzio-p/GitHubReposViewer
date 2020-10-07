@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import massenziop.githubreposviewer.databinding.ActivityMainBinding;
@@ -34,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchAuthenticationActivity() {
         Intent intent = new Intent(this, AuthenticationActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

@@ -17,7 +17,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
 
-            android:background="@drawable/github_title" />
+            android:background="@drawable/github_title"
+            android:contentDescription="@string/auth_application_title_image_desc" />
 
         <TextView
             android:id="@+id/auth_title_tv"
@@ -27,131 +28,65 @@
             android:layout_below="@id/auth_title_img"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:text="ReposViewer"
+            android:text="@string/auth_app_title"
 
             android:textColor="@android:color/black"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
         <RelativeLayout
-            android:id="@+id/auth_sign_form"
+            android:id="@+id/auth_method_sign_form"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:padding="10dp"
 
-            android:layout_above="@id/auth_simple_use_tb"
             android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
 
             android:background="@drawable/black_rounded_corners_border_shape">
 
             <TextView
-                android:id="@+id/auth_login_tv"
+                android:id="@+id/auth_form_title"
                 style="@style/AppTheme"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:layout_centerHorizontal="true"
-                android:text="Username or email address" />
-
-            <EditText
-                android:id="@+id/auth_login_et"
-                style="@style/AppTheme"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="10dp"
-
-                android:layout_below="@id/auth_login_tv"
-                android:layout_centerHorizontal="true"
-
-                android:background="@drawable/form_input_selector" />
-
-            <TextView
-                android:id="@+id/auth_pass_tv"
-                style="@style/AppTheme"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_below="@id/auth_login_et"
-
-                android:layout_centerHorizontal="true"
-                android:text="Password" />
-
-            <EditText
-                android:id="@+id/auth_pass_et"
-                style="@style/AppTheme"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="15dp"
-
-                android:layout_below="@id/auth_pass_tv"
-                android:layout_centerHorizontal="true"
-
-                android:inputType="textPassword"
-                android:background="@drawable/form_input_selector" />
+                android:text="@string/auth_choose_account"
+                />
 
             <Button
-                android:id="@+id/auth_sign_in_btn"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-
-                android:layout_below="@id/auth_pass_et"
+                android:id="@+id/auth_github_sign_in_btn"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:layout_below="@id/auth_form_title"
 
                 android:background="@drawable/black_rounded_corners_border_shape"
-                android:text="sign in" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/auth_simple_use_tb"
-            style="@style/AppTheme"
-            android:layout_marginBottom="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_above="@id/auth_sign_in_google"
-
-            android:layout_centerHorizontal="true"
-
-            android:textColor="@android:color/darker_gray"
-            android:text="Just use app" />
-
-        <RelativeLayout
-            android:id="@+id/auth_sign_in_google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:translationZ="-10dp"
-
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/form_input_selector"
-            android:gravity="center"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/auth_google_logo"
-                android:layout_width="60dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="@string/github_name" />
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/auth_google_sign_in_btn"
+                android:layout_width="200dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/btn_google_light_focus_hdpi" />
+                android:layout_marginBottom="10dp"
 
-            <TextView
-                android:id="@+id/auth_google_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/auth_google_logo"
-
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="8dp"
-                android:layout_toEndOf="@id/auth_google_logo"
-                android:text="Sign in with google" />
+                android:layout_below="@id/auth_github_sign_in_btn"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/black_rounded_corners_border_shape"
+                />
         </RelativeLayout>
+        <Button
+            android:id="@+id/auth_sign_in_btn"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+
+            android:layout_below="@id/auth_method_sign_form"
+            android:layout_centerHorizontal="true"
+
+            android:background="@drawable/black_rounded_corners_border_shape"
+            android:text="@string/auth_just_use_app" />
     </RelativeLayout>
 </layout>

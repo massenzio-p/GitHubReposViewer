@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GitHubReposViewer</string>
+    <string name="message_compromised_authentication">Your authentication possibly was compromised</string>
+    <string name="auth_app_title">ReposViewer</string>
+    <string name="auth_choose_account">Choose account</string>
+    <string name="github_name">GitHub</string>
+    <string name="auth_just_use_app">Just use app</string>
+    <string name="auth_application_title_image_desc">Application title image</string>
+    <string name="message_unexpected_failure">Sorry, an unexpected error occurred, try again!</string>
 </resources>
