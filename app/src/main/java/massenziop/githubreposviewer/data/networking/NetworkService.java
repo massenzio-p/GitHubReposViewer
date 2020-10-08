@@ -1,5 +1,10 @@
 package massenziop.githubreposviewer.data.networking;
 
+import massenziop.githubreposviewer.ApplicationController;
+import okhttp3.OkHttpClient;
+import okhttp3.internal.http.BridgeInterceptor;
+import okhttp3.internal.http.CallServerInterceptor;
+import okhttp3.internal.http.RetryAndFollowUpInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,8 +28,16 @@ public class NetworkService {
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .callbackExecutor(ApplicationController.getInstance().getBackgroundTasksExecutor())
+                .client(getHttpClient())
                 .build();
 
+    }
+
+    private OkHttpClient getHttpClient() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new RetryAndFollowUpInterceptor())
+                .build();
     }
 
     public static NetworkService getInstance() {
@@ -33,6 +46,7 @@ public class NetworkService {
         }
         return instance;
     }
+
 
     public static String getCodeRequestURL() {
         return codeRequestURL;
@@ -44,5 +58,11 @@ public class NetworkService {
 
     public void setAuthCode(String authCode) {
         this.authCode = authCode;
+    }
+
+    public void checkTokenSYNC() {
+        mRetrofit
+                .create(GitHubApi.class)
+                .;
     }
 }

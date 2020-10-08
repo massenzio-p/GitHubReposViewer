@@ -10,9 +10,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import massenziop.githubreposviewer.BuildConfig;
+import massenziop.githubreposviewer.data.networking.NetworkService;
 import massenziop.githubreposviewer.ui.authentication.AuthenticationActivity;
 
 public class Authenticator extends AbstractAccountAuthenticator {
+    public static final String ACCOUNT_TYPE = BuildConfig.APPLICATION_ID + ".account";
     private Context mContext;
 
     public Authenticator(Context context) {
@@ -37,19 +40,34 @@ public class Authenticator extends AbstractAccountAuthenticator {
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse accountAuthenticatorResponse,
                                Account account, String authTokenType, Bundle bundle) throws NetworkErrorException {
-        final Bundle result = new Bundle();
         final AccountManager am = AccountManager.get(mContext.getApplicationContext());
         String authToken = am.peekAuthToken(account, authTokenType);
-        if (!TextUtils.isEmpty(authToken)) {
-            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-            result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type);
-            result.putString(AccountManager.KEY_AUTHTOKEN, authToken);
+        if (TextUtils.isEmpty(authToken)) {
+            return createFailResult(accountAuthenticatorResponse, authTokenType);
         } else {
-            final Intent intent = new Intent(mContext, AuthenticationActivity.class);
-            intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, accountAuthenticatorResponse);
-            intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, authTokenType);
-            result.putParcelable(AccountManager.KEY_INTENT, intent);
+            if (NetworkService.getInstance().checkTokenSYNC()) {
+                return createSuccessResult(account, authToken);
+            }
+            return createFailResult(accountAuthenticatorResponse, authTokenType);
         }
+    }
+
+    private Bundle createSuccessResult(Account account, String token) {
+        final Bundle result = new Bundle();
+        result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+        result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type);
+        result.putString(AccountManager.KEY_AUTHTOKEN, token);
+        return result;
+    }
+
+    private Bundle createFailResult(
+            AccountAuthenticatorResponse response,
+            String tokenType) {
+        final Bundle result = new Bundle();
+        final Intent intent = new Intent(mContext, AuthenticationActivity.class);
+        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
+        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, tokenType);
+        result.putParcelable(AccountManager.KEY_INTENT, intent);
         return result;
     }
 
@@ -77,4 +95,5 @@ public class Authenticator extends AbstractAccountAuthenticator {
     public Bundle hasFeatures(AccountAuthenticatorResponse accountAuthenticatorResponse, Account account, String[] strings) throws NetworkErrorException {
         return null;
     }
+
 }
