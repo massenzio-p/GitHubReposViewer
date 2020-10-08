@@ -1,4 +1,4 @@
-package massenziop.githubreposviewer;
+package massenziop.githubreposviewer.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import massenziop.githubreposviewer.R;
 import massenziop.githubreposviewer.databinding.ActivityMainBinding;
 import massenziop.githubreposviewer.ui.authentication.AuthenticationActivity;
 

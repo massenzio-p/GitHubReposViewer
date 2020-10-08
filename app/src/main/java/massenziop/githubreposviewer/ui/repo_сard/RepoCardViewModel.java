@@ -1,4 +1,4 @@
-package massenziop.githubreposviewer.ui.repoCard;
+package massenziop.githubreposviewer.ui.repo_сard;
 
 import androidx.lifecycle.ViewModel;
 

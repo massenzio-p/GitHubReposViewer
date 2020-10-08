@@ -1,4 +1,4 @@
-package massenziop.githubreposviewer;
+package massenziop.githubreposviewer.app_helpers;
 
 public class Utils {
     public static String getRandomHash() {

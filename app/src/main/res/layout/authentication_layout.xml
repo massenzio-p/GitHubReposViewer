@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/auth_title_img"
@@ -37,9 +38,10 @@
             android:id="@+id/auth_method_sign_form"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
             android:padding="10dp"
-
+            android:elevation="10dp"
             android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
 
@@ -57,36 +59,24 @@
 
             <Button
                 android:id="@+id/auth_github_sign_in_btn"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
+                style="@style/AuthButtonStyle"
                 android:layout_marginBottom="20dp"
+
                 android:layout_below="@id/auth_form_title"
 
-                android:background="@drawable/black_rounded_corners_border_shape"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:text="@string/github_name" />
-            <com.google.android.gms.common.SignInButton
+            <Button
                 android:id="@+id/auth_google_sign_in_btn"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
+                style="@style/AuthButtonStyle"
                 android:layout_marginBottom="10dp"
-
-                android:layout_below="@id/auth_github_sign_in_btn"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/black_rounded_corners_border_shape"
-                />
+                android:text="@string/google_name"
+                android:layout_below="@id/auth_github_sign_in_btn" />
         </RelativeLayout>
         <Button
             android:id="@+id/auth_sign_in_btn"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            style="@style/AuthButtonStyle"
 
             android:layout_below="@id/auth_method_sign_form"
-            android:layout_centerHorizontal="true"
-
-            android:background="@drawable/black_rounded_corners_border_shape"
             android:text="@string/auth_just_use_app" />
     </RelativeLayout>
 </layout>

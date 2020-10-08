@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/repoCardFragment"
-        android:name="massenziop.githubreposviewer.ui.repoCard.RepoCardFragment"
+        android:name="massenziop.githubreposviewer.ui.repo_сard.RepoCardFragment"
         android:label="RepoCardFragment" />
     <fragment
         android:id="@+id/reposListFragment"

@@ -8,9 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.databinding.DataBindingUtil;
-import com.google.android.material.snackbar.Snackbar;
+
 import massenziop.githubreposviewer.R;
-import massenziop.githubreposviewer.Utils;
+import massenziop.githubreposviewer.app_helpers.Utils;
 import massenziop.githubreposviewer.data.networking.NetworkService;
 import massenziop.githubreposviewer.databinding.AuthenticationLayoutBinding;
 import static massenziop.githubreposviewer.data.networking.NetworkService.REQUEST_PARAM_NAME_CLIENT_ID;
