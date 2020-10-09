@@ -10,12 +10,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import java.io.IOException;
+
+import massenziop.githubreposviewer.ApplicationController;
 import massenziop.githubreposviewer.BuildConfig;
+import massenziop.githubreposviewer.data.models.GitHubUserModel;
 import massenziop.githubreposviewer.data.networking.NetworkService;
 import massenziop.githubreposviewer.ui.authentication.AuthenticationActivity;
 
 public class Authenticator extends AbstractAccountAuthenticator {
     public static final String ACCOUNT_TYPE = BuildConfig.APPLICATION_ID + ".account";
+    public static final String ACCOUNT_TOKEN_TYPE = BuildConfig.APPLICATION_ID + ".account.bearer_token";
     private Context mContext;
 
     public Authenticator(Context context) {
@@ -45,8 +50,18 @@ public class Authenticator extends AbstractAccountAuthenticator {
         if (TextUtils.isEmpty(authToken)) {
             return createFailResult(accountAuthenticatorResponse, authTokenType);
         } else {
-            if (NetworkService.getInstance().checkTokenSYNC()) {
-                return createSuccessResult(account, authToken);
+            try {
+                GitHubUserModel user = NetworkService.getInstance().getUserCardSynch(authToken);
+                if (user != null) {
+                    ApplicationController.getInstance().createOrUpdateAccount(
+                            user,
+                            authToken,
+                            null);
+                    return createSuccessResult(account, authToken);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return createFailResult(accountAuthenticatorResponse, authTokenType);
         }

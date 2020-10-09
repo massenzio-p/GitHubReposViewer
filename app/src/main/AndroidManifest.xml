@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.start_loading.StartLoadingActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,9 +36,14 @@
 
                 <data android:scheme="massenziop"/>
                 <data android:host="github.repos.viewer.auth.callback" />
+                <data android:path="/code_callback" />
+                <data android:path="/authenticated" />
             </intent-filter>
         </activity>
-        <service android:name=".authentication.AuthenticationService">
+
+        <service
+            android:name=".authentication.AuthenticationService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>

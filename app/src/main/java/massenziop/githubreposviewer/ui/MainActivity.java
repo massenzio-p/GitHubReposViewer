@@ -21,30 +21,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: check authentication, m.b. create loading fragment...
-        if (true) {
-            launchAuthenticationActivity();
-            return;
-        } else {
-            binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        }
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
 /*      NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
         navController.navigate(R.id.action_global_authenticationActivity);*/
     }
 
-    private void launchAuthenticationActivity() {
-        Intent intent = new Intent(this, AuthenticationActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    private NavController getNavController() {
+        return Navigation.findNavController(this, R.id.nav_host_fragment);
     }
 }

@@ -8,4 +8,6 @@
     <string name="auth_application_title_image_desc">Application title image</string>
     <string name="message_unexpected_failure">Sorry, an unexpected error occurred, try again!</string>
     <string name="google_name">Google</string>
+    <string name="github_app_cliend_id">590d143d50273e13c2be</string>
+    <string name="github_app_cliend_secret">8daa5de1474664a0b1bab9266bb8abbbed6015b8</string>
 </resources>
