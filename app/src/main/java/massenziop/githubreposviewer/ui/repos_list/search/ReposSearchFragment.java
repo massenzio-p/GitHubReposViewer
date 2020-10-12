@@ -1,8 +1,6 @@
 package massenziop.githubreposviewer.ui.repos_list.search;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -33,6 +30,7 @@ import massenziop.githubreposviewer.data.AppRepository;
 import massenziop.githubreposviewer.data.models.GitHubRepoModel;
 import massenziop.githubreposviewer.data.models.GitHubUserModel;
 import massenziop.githubreposviewer.databinding.ReposSearchTabBinding;
+import massenziop.githubreposviewer.ui.repos_list.PagedRecyclerAdapter;
 import massenziop.githubreposviewer.ui.repos_list.ReposListPagerFragmentDirections;
 import massenziop.githubreposviewer.ui.repos_list.SwipeRecyclerCallback;
 
@@ -52,14 +50,17 @@ public class ReposSearchFragment extends Fragment implements ViewModelStoreOwner
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setUpRecycler();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         setSearchListener();
     }
 
-
-
     private void setUpRecycler() {
         binding.reposSearchRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        NetworkReposPagedRecyclerAdapter mAdapter = new NetworkReposPagedRecyclerAdapter(
+        PagedRecyclerAdapter mAdapter = new PagedRecyclerAdapter(
                 this::openCard,
                 getContext()
         );

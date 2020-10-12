@@ -86,7 +86,6 @@ public class ReposListPagerFragment extends Fragment {
     private void initFragment() {
         toggleSearchVisibility();
         setupPager();
-        // TODO: Setup view pager with tab layout, create tabs adapter
     }
 
     private void setupPager() {

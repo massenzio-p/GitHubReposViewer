@@ -22,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.Status;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -145,7 +146,27 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
     private void setListeners() {
-        binding.authGithubSignInBtn.setOnClickListener(v -> launchChromeTab(null));
+        binding.authGithubSignInBtn.setOnClickListener(v -> {
+            binding.gitHubLoginEt.setVisibility(View.VISIBLE);
+            binding.githubSignBtnsLayout.setVisibility(View.VISIBLE);
+            v.setVisibility(View.GONE);});
+        binding.ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String login = binding.gitHubLoginEt.getText().toString();
+                launchChromeTab(login);
+                binding.gitHubLoginEt.setVisibility(View.GONE);
+                binding.githubSignBtnsLayout.setVisibility(View.GONE);
+                binding.authGithubSignInBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.cancel.setOnClickListener(v -> {
+            binding.gitHubLoginEt.setVisibility(View.GONE);
+            binding.githubSignBtnsLayout.setVisibility(View.GONE);
+            binding.authGithubSignInBtn.setVisibility(View.VISIBLE);
+        });
+
         binding.authGoogleSignInBtn.setOnClickListener(v -> authWithGoogle());
         binding.authSimpleUse.setOnClickListener(v -> launchMainActivity());
     }

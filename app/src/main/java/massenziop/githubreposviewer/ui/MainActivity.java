@@ -12,13 +12,22 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
 import massenziop.githubreposviewer.ApplicationController;
 import massenziop.githubreposviewer.R;
+import massenziop.githubreposviewer.data.AppRepository;
+import massenziop.githubreposviewer.data.models.GitHubUserModel;
+import massenziop.githubreposviewer.data.networking.NetworkService;
 import massenziop.githubreposviewer.databinding.ActivityMainBinding;
 import massenziop.githubreposviewer.ui.authentication.AuthenticationActivity;
 
@@ -48,6 +57,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         navView.setNavigationItemSelectedListener(this);
+        if (ApplicationController.getInstance().getMode() == ApplicationController.AuthMode.AUTHENTICATED_MODE) {
+            View drawerHeader  = navView.inflateHeaderView(R.layout.drawer_header);
+            ImageView avatar = drawerHeader.findViewById(R.id.drawer_avatar);
+            TextView login = drawerHeader.findViewById(R.id.drawer_tv_login);
+            TextView name = drawerHeader.findViewById(R.id.drawer_tv_name);
+            GitHubUserModel user = ApplicationController.getInstance().getCurrentUser();
+            if (user != null) {
+                login.setText(user.getLogin());
+                name.setText(user.getName());
+                if (user.getAvatar_url() != null) {
+                    AppRepository.getInstance().getAvatar(user.getAvatar_url(), new NetworkService.OnImageGottenCallback() {
+                        @Override
+                        public void onImageGotten(Bitmap bitmap) {
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                avatar.setImageBitmap(bitmap);
+                            });
+                        }
+                    });
+
+                }
+
+            }
+        }
     }
 
 

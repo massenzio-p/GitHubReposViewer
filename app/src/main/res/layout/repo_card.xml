@@ -71,111 +71,114 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/black_rounded_corners_border_shape"
                         android:gravity="center"
                         android:minWidth="130dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:padding="5dp"
-                        android:background="@drawable/black_rounded_corners_border_shape"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <ImageView
                             android:id="@+id/star_image"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:background="@drawable/star"
                             android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"/>
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/star" />
 
                         <TextView
                             android:id="@+id/star_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_marginEnd="10dp"
-                            android:textColor="@android:color/black"
 
                             android:layout_toEndOf="@id/star_image"
-                            android:layout_centerVertical="true"
-                            android:text="@string/stars" />
+                            android:text="@string/stars"
+                            android:textColor="@android:color/black" />
 
                         <TextView
                             android:id="@+id/star_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/star_tv"
                             android:layout_centerVertical="true"
-                            android:textColor="@android:color/black"
-                            android:textSize="20sp"
                             android:layout_marginStart="4dp"
-                            android:text="@{String.valueOf(repo.stargazers_count)}" />
+                            android:layout_toEndOf="@id/star_tv"
+                            android:text="@{String.valueOf(repo.stargazers_count)}"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/black_rounded_corners_border_shape"
                         android:gravity="center"
                         android:minWidth="130dp"
-                        android:layout_marginEnd="10dp"
-                        android:padding="5dp"
-                        android:background="@drawable/black_rounded_corners_border_shape"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <ImageView
                             android:id="@+id/fork_image"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_alignParentStart="true"
-                            android:background="@drawable/fork"
-                            android:layout_centerVertical="true"/>
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/fork" />
 
                         <TextView
                             android:id="@+id/fork_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_marginEnd="10dp"
-                            android:textColor="@android:color/black"
 
                             android:layout_toEndOf="@id/fork_image"
-                            android:layout_centerVertical="true"
-                            android:text="@string/forks" />
+                            android:text="@string/forks"
+                            android:textColor="@android:color/black" />
 
                         <TextView
                             android:id="@+id/fork_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/fork_tv"
                             android:layout_centerVertical="true"
-                            android:textSize="20sp"
-                            android:textColor="@android:color/black"
                             android:layout_marginStart="4dp"
-                            android:text="@{String.valueOf(repo.forks)}" />
+                            android:layout_toEndOf="@id/fork_tv"
+                            android:text="@{String.valueOf(repo.forks)}"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
+
         <TextView
             android:id="@+id/repo_card_descr_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/repo_card_header"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold"
+            android:text="@string/repo_card_description_header"
             android:textColor="@android:color/black"
-            android:text="@string/repo_card_description_header"/>
+            android:textStyle="bold" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/repo_card_descr_header"
-            >
-        <TextView
+            android:layout_below="@id/repo_card_descr_header">
 
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/black_rounded_corners_border_shape"
                 android:minHeight="300dp"
                 android:padding="10dp"
+                android:text="@{repo.description}"
                 android:textAlignment="textStart"
-                android:textColor="@android:color/black"
-                android:background="@drawable/black_rounded_corners_border_shape"
-                android:text="@{repo.description}"/>
+                android:textColor="@android:color/black" />
         </ScrollView>
     </RelativeLayout>
 </layout>

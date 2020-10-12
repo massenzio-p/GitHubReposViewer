@@ -2,9 +2,11 @@ package massenziop.githubreposviewer.data.networking;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Looper;
+import android.util.Base64;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -47,7 +49,7 @@ public class NetworkService {
     private static final String codeRequestURL = "https://github.com/login/oauth/authorize";
     private static final String baseURL = "https://api.github.com";
     private static final String authBaseURL = "https://github.com";
-    ;
+
 
     private Retrofit mRetrofit;
 
@@ -103,6 +105,7 @@ public class NetworkService {
     }
 
 
+
     public static String getCodeRequestURL() {
         return codeRequestURL;
     }
@@ -142,9 +145,26 @@ public class NetworkService {
                 });
     }
 
+    public void revokeToken(String token) throws IOException {
+        String credentials = getClientID() + ":" + getClientSecret();
+        credentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        Response res = getRevokingRetrofit().create(GitHubApi.class).revokeToken(
+                getClientID()
+        ).execute();
+        res.code();
+    }
+
     private Retrofit getAuthRetrofit() {
         return new Retrofit.Builder()
                 .baseUrl(authBaseURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .callbackExecutor(ApplicationController.getInstance().getBackgroundTasksExecutor())
+                .build();
+    }
+
+    private Retrofit getRevokingRetrofit() {
+        return new Retrofit.Builder()
+                .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .callbackExecutor(ApplicationController.getInstance().getBackgroundTasksExecutor())
                 .build();

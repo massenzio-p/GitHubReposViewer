@@ -1,4 +1,4 @@
-package massenziop.githubreposviewer.ui.repos_list.search;
+package massenziop.githubreposviewer.ui.repos_list;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,25 +14,23 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
 import massenziop.githubreposviewer.data.AppRepository;
 import massenziop.githubreposviewer.data.models.GitHubRepoModel;
-import massenziop.githubreposviewer.data.networking.NetworkService;
 import massenziop.githubreposviewer.databinding.RepoRecyclerItemBinding;
 import massenziop.githubreposviewer.ui.repos_list.OnGitHubRepoSelectedCallback;
 
-public class NetworkReposPagedRecyclerAdapter extends PagedListAdapter<GitHubRepoModel, RecyclerView.ViewHolder> {
+public class PagedRecyclerAdapter extends PagedListAdapter<GitHubRepoModel, RecyclerView.ViewHolder> {
 
     private LayoutInflater layoutInflater;
     OnGitHubRepoSelectedCallback onSelectedCallback;
 
-    static class AssetDiffCallBack extends DiffUtil.ItemCallback<GitHubRepoModel> {
+    static class DiffCallBack extends DiffUtil.ItemCallback<GitHubRepoModel> {
         private List<GitHubRepoModel> oldItems, newItems;
 
-        AssetDiffCallBack() {
+        DiffCallBack() {
             this.oldItems = new ArrayList<>();
             this.newItems = new ArrayList<>();
         }
@@ -84,8 +82,8 @@ public class NetworkReposPagedRecyclerAdapter extends PagedListAdapter<GitHubRep
         }
     }
 
-    public NetworkReposPagedRecyclerAdapter(OnGitHubRepoSelectedCallback onSelectedResult, Context context) {
-        super(new AssetDiffCallBack());
+    public PagedRecyclerAdapter(OnGitHubRepoSelectedCallback onSelectedResult, Context context) {
+        super(new DiffCallBack());
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.onSelectedCallback = onSelectedResult;
     }

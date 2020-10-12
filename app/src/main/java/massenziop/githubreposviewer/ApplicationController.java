@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -43,7 +45,7 @@ public class ApplicationController extends Application {
         );
     }
 
-    public enum  AuthMode {
+    public enum AuthMode {
         AUTHENTICATED_MODE,
         SIMPLE_MODE
     }
@@ -81,7 +83,11 @@ public class ApplicationController extends Application {
 
     public Account getCurrentAccount() {
         if (currentAccount == null) {
-            setCurrentAccount(getLastAccount(), null);
+            Account account = getLastAccount();
+            if (account == null) {
+                return null;
+            }
+            setCurrentAccount(account, null);
         }
         return currentAccount;
     }
@@ -141,24 +147,45 @@ public class ApplicationController extends Application {
     }
 
     public void setCurrentAccount(Account currentAccount, GitHubUserModel user) {
+        if (currentAccount == null) {
+            AccountManager am = AccountManager.get(this);
+            String token = am.peekAuthToken(
+                    this.currentAccount,
+                    Authenticator.ACCOUNT_TOKEN_TYPE
+            );
+            if (!TextUtils.isEmpty(token)) {
+                networkExecutor.execute(() -> {
+                    try {
+                        NetworkService.getInstance().revokeToken(token);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }
+
         this.currentAccount = currentAccount;
         this.currentUser = user;
+
         if (currentAccount != null) {
             setMode(AuthMode.AUTHENTICATED_MODE);
             initDataBase();
-
-            AppRepository.getInstance().addAppUser(user);
+            dbExecutor.execute(() -> {
+                AppRepository.getInstance().addAppUser(user);
+            });
         } else {
             setMode(AuthMode.SIMPLE_MODE);
+            AppPreferences.setLastAccountName(
+                    this,
+                    currentAccount == null ? null : currentAccount.name);
         }
-        AppPreferences.setLastAccountName(
-                this,
-                currentAccount == null ? null : currentAccount.name);
     }
 
     private void initDataBase() {
-        db =  Room.databaseBuilder(this,
-                Database.class, "database").build();
+        db = Room.databaseBuilder(this,
+                Database.class, "github_repos_db")
+                .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
+                .build();
     }
 
     public Database getDb() {
@@ -177,15 +204,15 @@ public class ApplicationController extends Application {
     }
 
     private void updateUserdata(AccountManager am, Account account, GitHubUserModel user) {
-        am.setUserData(account,"login", user.getLogin());
-        am.setUserData(account,"id", user.getId() + "");
-        am.setUserData(account,"node_id", user.getNode_id());
-        am.setUserData(account,"avatar_url", user.getAvatar_url());
-        am.setUserData(account,"gravatar_id", user.getGravatar_id());
-        am.setUserData(account,"url", user.getUrl());
-        am.setUserData(account,"email", user.getEmail());
-        am.setUserData(account,"name", user.getName());
-        am.setUserData(account,"company", user.getCompany());
+        am.setUserData(account, "login", user.getLogin());
+        am.setUserData(account, "id", user.getId() + "");
+        am.setUserData(account, "node_id", user.getNode_id());
+        am.setUserData(account, "avatar_url", user.getAvatar_url());
+        am.setUserData(account, "gravatar_id", user.getGravatar_id());
+        am.setUserData(account, "url", user.getUrl());
+        am.setUserData(account, "email", user.getEmail());
+        am.setUserData(account, "name", user.getName());
+        am.setUserData(account, "company", user.getCompany());
     }
 
     public GitHubUserModel getCurrentUser() {

@@ -9,7 +9,6 @@ import androidx.room.RawQuery;
 import androidx.sqlite.db.SupportSQLiteQuery;
 
 import massenziop.githubreposviewer.data.models.GitHubRepoModel;
-import retrofit2.http.DELETE;
 
 @Dao
 public interface ReposDao {
@@ -26,4 +25,6 @@ public interface ReposDao {
     @RawQuery(observedEntities = GitHubRepoModel.class)
     DataSource.Factory<Integer, GitHubRepoModel> getReposDataSource(SupportSQLiteQuery query);
 
+    @Query("SELECT * FROM github_repos WHERE id = :id AND favor_owner_id = :favorite_owner_id")
+    GitHubRepoModel getRepoById(int id, int favorite_owner_id);
 }

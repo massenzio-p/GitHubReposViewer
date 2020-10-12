@@ -17,4 +17,6 @@
     <string name="stars">stars</string>
     <string name="forks">forks</string>
     <string name="repo_card_description_header">Description</string>
+    <string name="favor">Favor</string>
+    <string name="remove_favorite">remove_favorite</string>
 </resources>

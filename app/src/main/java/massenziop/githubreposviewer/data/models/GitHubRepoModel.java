@@ -21,9 +21,11 @@ import java.util.Objects;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "github_repos",
-            foreignKeys = @ForeignKey(entity = GitHubUserModel.class, parentColumns = "id", childColumns = "favor_owner_id", onDelete = CASCADE))
+@Entity(
+        tableName = "github_repos",
+        foreignKeys = @ForeignKey(entity = GitHubUserModel.class, parentColumns = "id", childColumns = "favor_owner_id", onDelete = CASCADE))
 public class GitHubRepoModel implements Parcelable {
+
     @PrimaryKey
     @SerializedName("id")
     private int id;

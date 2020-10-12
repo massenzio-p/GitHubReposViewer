@@ -8,6 +8,26 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:visible="false"
         app:showAsAction="always"
-
         />
+    <item
+        android:id="@+id/app_toolbar_add_to_favorites"
+
+        android:title="@string/favor"
+        android:icon="@android:drawable/star_big_off"
+        android:visible="false"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/app_toolbar_remove_from_favorites"
+        android:title="@string/remove_favorite"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:visible="false"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/app_toolbar_remove_all"
+        android:title="Search"
+        android:icon="@drawable/remove_all"
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>

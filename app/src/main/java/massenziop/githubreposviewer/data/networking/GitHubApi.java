@@ -8,10 +8,12 @@ import massenziop.githubreposviewer.data.models.GitHubSearchDeserializedResponse
 import massenziop.githubreposviewer.data.models.GitHubUserModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -30,6 +32,9 @@ public interface GitHubApi {
             @Query("redirect_uri") String redirect_uri,
             @Query("state") String state);
 
+    @DELETE("settings/connections/applications/:{client_id}")
+    Call<HashMap<String, String>> revokeToken(
+            @Path("client_id") String client_id);
 
     @GET("search/repositories")
     Call<GitHubSearchDeserializedResponse> searchRepos(

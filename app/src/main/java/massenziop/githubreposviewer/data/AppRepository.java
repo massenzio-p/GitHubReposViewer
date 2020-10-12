@@ -1,6 +1,11 @@
 package massenziop.githubreposviewer.data;
 
 import android.database.sqlite.SQLiteConstraintException;
+
+import androidx.paging.DataSource;
+import androidx.sqlite.db.SupportSQLiteQuery;
+import androidx.sqlite.db.SupportSQLiteQueryBuilder;
+
 import java.io.IOException;
 import java.util.List;
 import massenziop.githubreposviewer.ApplicationController;
@@ -11,6 +16,7 @@ import massenziop.githubreposviewer.data.models.GitHubUserModel;
 import massenziop.githubreposviewer.data.networking.NetworkService;
 
 public class AppRepository {
+    private static final String REPOS_TABLE_NAME = "github_repos";
     private static AppRepository instance;
 
     public static AppRepository getInstance() {
@@ -59,5 +65,54 @@ public class AppRepository {
                 }
             });
         }
+    }
+
+    public DataSource.Factory<Integer, GitHubRepoModel> getGitHubReposDBDataSource(String switchSearch) {
+        int currentUserID = ApplicationController.getInstance().getCurrentUser().getId();
+        SupportSQLiteQuery query = SupportSQLiteQueryBuilder
+                .builder(REPOS_TABLE_NAME)
+                .columns(new String[]{"*"})
+                .selection(
+                        "( name LIKE ? OR " +
+                                "full_name LIKE ? OR " +
+                                "description LIKE ? OR " +
+                                "ownername LIKE ? ) AND "  +
+                                "favor_owner_id = " + currentUserID,
+                        new String[]{
+                                "%" + switchSearch + "%",
+                                "%" + switchSearch + "%",
+                                "%" + switchSearch + "%",
+                                "%" + switchSearch + "%"
+                        })
+                .orderBy(
+                        "id")
+                .create();
+
+        return ApplicationController.getInstance().getDb().reposDao().getReposDataSource(query);
+    }
+
+
+    public void removeFromFavorites(GitHubRepoModel item) {
+        ApplicationController.getInstance().getDbExecutor().execute((() -> {
+            ApplicationController.getInstance().getDb().reposDao().deleteRepo(item);
+        }));
+
+    }
+
+    public interface RepoGottenCallback {
+        void onRepoGotten(GitHubRepoModel repo);
+    }
+
+    public void getRepoById(int id, RepoGottenCallback callback) {
+        ApplicationController.getInstance().getDbExecutor().execute((() -> {
+            GitHubRepoModel repo = ApplicationController
+                    .getInstance()
+                    .getDb()
+                    .reposDao()
+                    .getRepoById(
+                            id,
+                            ApplicationController.getInstance().getCurrentUser().getId());
+            callback.onRepoGotten(repo);
+        }));
     }
 }
