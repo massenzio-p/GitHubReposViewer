@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
-    app:startDestination="@id/reposListFragment">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/reposListPagerFragment">
+    <fragment
+        android:id="@+id/reposListPagerFragment"
+        android:name="massenziop.githubreposviewer.ui.repos_list.ReposListPagerFragment"
+        android:label="ReposListPagerFragment"
+        tools:layout="@layout/repos_list_pager">
+        <action
+            android:id="@+id/repoCardAction"
+            app:destination="@id/repoCardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/repoCardFragment"
         android:name="massenziop.githubreposviewer.ui.repo_сard.RepoCardFragment"
-        android:label="RepoCardFragment" />
-    <fragment
-        android:id="@+id/reposListFragment"
-        android:name="massenziop.githubreposviewer.ui.repos_list.ReposListFragment"
-        android:label="ReposListFragment" >
-        <action
-            android:id="@+id/action_reposListFragment_to_repoCardFragment"
-            app:destination="@id/repoCardFragment"
-            app:enterAnim="@anim/fragment_close_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
-            app:popUpToInclusive="true" />
+        android:label="RepoCardFragment"
+        tools:layout="@layout/repo_card">
+        <argument
+            android:name="repo"
+            app:argType="massenziop.githubreposviewer.data.models.GitHubRepoModel" />
     </fragment>
 </navigation>

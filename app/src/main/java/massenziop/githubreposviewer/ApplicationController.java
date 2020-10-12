@@ -3,10 +3,12 @@ package massenziop.githubreposviewer;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
+
+import androidx.room.Room;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -14,18 +16,37 @@ import java.util.concurrent.Executors;
 
 import massenziop.githubreposviewer.app_helpers.AppPreferences;
 import massenziop.githubreposviewer.authentication.Authenticator;
+import massenziop.githubreposviewer.data.AppRepository;
+import massenziop.githubreposviewer.data.database.Database;
 import massenziop.githubreposviewer.data.models.GitHubUserModel;
 import massenziop.githubreposviewer.data.networking.NetworkService;
 
 public class ApplicationController extends Application {
     private static final int NETWORK_THREADS_AMOUNT = 2;
     private static ApplicationController instance;
-
+    private AuthMode mode;
     private Account currentAccount;
     private ExecutorService backgroundTasksExecutor;
     private ExecutorService networkExecutor;
     private ExecutorService dbExecutor;
+    private Database db;
+    private GitHubUserModel currentUser;
 
+    public void onTokenFailure(Account account) {
+        AccountManager.get(this).getAuthToken(
+                account,
+                Authenticator.ACCOUNT_TOKEN_TYPE,
+                Bundle.EMPTY,
+                false,
+                null,
+                null
+        );
+    }
+
+    public enum  AuthMode {
+        AUTHENTICATED_MODE,
+        SIMPLE_MODE
+    }
 
     @Override
     public void onCreate() {
@@ -54,18 +75,14 @@ public class ApplicationController extends Application {
         return dbExecutor;
     }
 
-    public Account[] getAppAccounts(Context context) {
-        return AccountManager.get(context).getAccountsByType(Authenticator.ACCOUNT_TYPE);
-    }
-
-    public Account getCurrentAccount(Context context) {
-        if (getCurrentAccount() == null) {
-            currentAccount = getLastAccount(context);
-        }
-        return currentAccount;
+    public Account[] getAppAccounts() {
+        return AccountManager.get(this).getAccountsByType(Authenticator.ACCOUNT_TYPE);
     }
 
     public Account getCurrentAccount() {
+        if (currentAccount == null) {
+            setCurrentAccount(getLastAccount(), null);
+        }
         return currentAccount;
     }
 
@@ -79,16 +96,12 @@ public class ApplicationController extends Application {
         return null;
     }
 
-    private Account getLastAccount(Context context) {
-        Account[] accounts = getAppAccounts(context);
-        String lastAccountName = AppPreferences.getLastAccountName(context);
+    private Account getLastAccount() {
+        Account[] accounts = getAppAccounts();
+        String lastAccountName = AppPreferences.getLastAccountName(this);
         return findAccountFromArray(lastAccountName, accounts);
     }
 
-    public void sendActivityIntent(String uri, String token) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        startActivity(intent);
-    }
 
     public void checkToken(String uri, String token) {
         getBackgroundTasksExecutor().execute(() -> {
@@ -123,8 +136,44 @@ public class ApplicationController extends Application {
                     | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-        currentAccount = account;
+        setCurrentAccount(account, user);
         AppPreferences.setLastAccountName(this, account.name);
+    }
+
+    public void setCurrentAccount(Account currentAccount, GitHubUserModel user) {
+        this.currentAccount = currentAccount;
+        this.currentUser = user;
+        if (currentAccount != null) {
+            setMode(AuthMode.AUTHENTICATED_MODE);
+            initDataBase();
+
+            AppRepository.getInstance().addAppUser(user);
+        } else {
+            setMode(AuthMode.SIMPLE_MODE);
+        }
+        AppPreferences.setLastAccountName(
+                this,
+                currentAccount == null ? null : currentAccount.name);
+    }
+
+    private void initDataBase() {
+        db =  Room.databaseBuilder(this,
+                Database.class, "database").build();
+    }
+
+    public Database getDb() {
+        if (db == null) {
+            initDataBase();
+        }
+        return db;
+    }
+
+    public AuthMode getMode() {
+        return mode;
+    }
+
+    private void setMode(AuthMode mode) {
+        this.mode = mode;
     }
 
     private void updateUserdata(AccountManager am, Account account, GitHubUserModel user) {
@@ -138,4 +187,9 @@ public class ApplicationController extends Application {
         am.setUserData(account,"name", user.getName());
         am.setUserData(account,"company", user.getCompany());
     }
+
+    public GitHubUserModel getCurrentUser() {
+        return currentUser;
+    }
+
 }

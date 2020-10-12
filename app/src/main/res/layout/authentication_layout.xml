@@ -4,79 +4,70 @@
     <data>
 
     </data>
-
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/auth_root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white">
 
-        <ImageView
-            android:id="@+id/auth_title_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-
-            android:background="@drawable/github_title"
-            android:contentDescription="@string/auth_application_title_image_desc" />
-
-        <TextView
-            android:id="@+id/auth_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_below="@id/auth_title_img"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="@string/auth_app_title"
-
-            android:textColor="@android:color/black"
-            android:textSize="25sp" />
-
         <RelativeLayout
-            android:id="@+id/auth_method_sign_form"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
-            android:padding="10dp"
-            android:elevation="10dp"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            android:background="@drawable/black_rounded_corners_border_shape">
-
-            <TextView
-                android:id="@+id/auth_form_title"
-                style="@style/AppTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_centerHorizontal="true"
-                android:text="@string/auth_choose_account"
+            <include layout="@layout/app_logo"
                 />
 
-            <Button
-                android:id="@+id/auth_github_sign_in_btn"
-                style="@style/AuthButtonStyle"
+            <RelativeLayout
+                android:id="@+id/auth_method_sign_form"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:elevation="10dp"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
 
-                android:layout_below="@id/auth_form_title"
+                android:background="@drawable/black_rounded_corners_border_shape">
 
-                android:text="@string/github_name" />
+                <TextView
+                    android:id="@+id/auth_form_title"
+                    style="@style/AppTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/auth_choose_account"
+                    />
+
+                <Button
+                    android:id="@+id/auth_github_sign_in_btn"
+                    style="@style/AuthButtonStyle"
+                    android:layout_marginBottom="20dp"
+
+                    android:layout_below="@id/auth_form_title"
+
+                    android:text="@string/github_name" />
+                <Button
+                    android:id="@+id/auth_google_sign_in_btn"
+                    style="@style/AuthButtonStyle"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/google_name"
+                    android:layout_below="@id/auth_github_sign_in_btn" />
+
+                <Button
+                    android:id="@+id/auth_choose_account_btn"
+                    style="@style/AuthButtonStyle"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/auth_choose_existing"
+                    android:layout_below="@id/auth_google_sign_in_btn" />
+            </RelativeLayout>
             <Button
-                android:id="@+id/auth_google_sign_in_btn"
+                android:id="@+id/auth_simple_use"
                 style="@style/AuthButtonStyle"
-                android:layout_marginBottom="10dp"
-                android:text="@string/google_name"
-                android:layout_below="@id/auth_github_sign_in_btn" />
-        </RelativeLayout>
-        <Button
-            android:id="@+id/auth_sign_in_btn"
-            style="@style/AuthButtonStyle"
 
-            android:layout_below="@id/auth_method_sign_form"
-            android:text="@string/auth_just_use_app" />
-    </RelativeLayout>
+                android:layout_below="@id/auth_method_sign_form"
+                android:text="@string/auth_just_use_app" />
+        </RelativeLayout>
+    </FrameLayout>
 </layout>

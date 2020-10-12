@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "909077557877",
+    "firebase_url": "https://githubreposviewer.firebaseio.com",
+    "project_id": "githubreposviewer",
+    "storage_bucket": "githubreposviewer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909077557877:android:6510d1979e85d2e4b67e3c",
+        "android_client_info": {
+          "package_name": "massenziop.githubreposviewer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909077557877-06ll2p2vumjeropo5bkqdrtcu3bge57s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-goi5oY5MdVU-nIeviGLfxYqeAMF76YU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909077557877-06ll2p2vumjeropo5bkqdrtcu3bge57s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

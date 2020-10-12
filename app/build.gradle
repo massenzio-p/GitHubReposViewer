@@ -4,6 +4,8 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
     apply plugin: "androidx.navigation.safeargs"
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: "androidx.navigation.safeargs"
 
     buildFeatures {
         dataBinding true
@@ -33,14 +35,18 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-
+    // GSI
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-analytics'
 
     // Navigation
 
@@ -59,4 +65,13 @@ dependencies {
     // Chrome custom tabs
     def chr_cus_tab_version = "23.3.0"
     implementation "com.android.support:customtabs:$chr_cus_tab_version"
+
+    // Paging library
+    def paging_version = "2.1.2"
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 }

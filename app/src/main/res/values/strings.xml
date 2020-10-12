@@ -3,6 +3,7 @@
     <string name="message_compromised_authentication">Your authentication possibly was compromised</string>
     <string name="auth_app_title">ReposViewer</string>
     <string name="auth_choose_account">Choose account</string>
+    <string name="auth_choose_existing">Choose existing</string>
     <string name="github_name">GitHub</string>
     <string name="auth_just_use_app">Just use app</string>
     <string name="auth_application_title_image_desc">Application title image</string>
@@ -10,4 +11,10 @@
     <string name="google_name">Google</string>
     <string name="github_app_cliend_id">590d143d50273e13c2be</string>
     <string name="github_app_cliend_secret">8daa5de1474664a0b1bab9266bb8abbbed6015b8</string>
+    <string name="navigation_drawer_open">drawer_open</string>
+    <string name="navigation_drawer_close">drawer_close</string>
+    <string name="author">author</string>
+    <string name="stars">stars</string>
+    <string name="forks">forks</string>
+    <string name="repo_card_description_header">Description</string>
 </resources>

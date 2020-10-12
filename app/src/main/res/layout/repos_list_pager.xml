@@ -2,34 +2,30 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-    </data>
+    <data></data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Toolbar
-            android:id="@+id/repos_pager_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize">
-
-            <AutoCompleteTextView
-                android:id="@+id/repos_pager_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </Toolbar>
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <com.google.android.material.tabs.TabLayout
+
             android:id="@+id/repos_pager_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/repos_pager_toolbar" />
+            android:background="@android:color/black"
+            app:tabTextColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/holo_blue_bright"
+
+            >
+        </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/repos_pager_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/repos_pager_tab_layout" />
+            android:layout_below="@id/repos_pager_tab_layout"
+            android:background="@android:color/white" />
     </RelativeLayout>
 </layout>

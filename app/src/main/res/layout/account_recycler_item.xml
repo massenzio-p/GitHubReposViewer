@@ -7,14 +7,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@drawable/accout_recycler_item_background_selector">
 
         <TextView
+            android:id="@+id/account_recycler_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="FVOR"
+            style="@style/AppTheme"
             android:layout_centerInParent="true"
-            android:textColor="@android:color/holo_green_light"
-            android:textSize="30sp" />
+            android:textStyle="bold"
+            android:textSize="20sp" />
     </RelativeLayout>
 </layout>

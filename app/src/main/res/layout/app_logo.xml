@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:id="@+id/auth_title_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+
+        android:background="@drawable/github_title"
+        android:contentDescription="@string/auth_application_title_image_desc" />
+
+    <TextView
+        android:id="@+id/auth_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/auth_title_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/auth_app_title"
+
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
+</RelativeLayout>
