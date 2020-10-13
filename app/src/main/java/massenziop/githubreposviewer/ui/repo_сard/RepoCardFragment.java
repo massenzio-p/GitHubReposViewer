@@ -27,7 +27,7 @@ import massenziop.githubreposviewer.databinding.RepoCardBinding;
 public class RepoCardFragment extends Fragment implements NavigationControllerGetter {
     private static final String REPO_ARG_KEY = "repo";
     private RepoCardBinding binding;
-
+    private GitHubRepoModel repo;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,9 +39,14 @@ public class RepoCardFragment extends Fragment implements NavigationControllerGe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        GitHubRepoModel repo = (GitHubRepoModel) getArguments().get("repo");
+        repo = (GitHubRepoModel) getArguments().get("repo");
         binding.setRepo(repo);
         binding.repoItemAvatar.setImageBitmap(repo.getAvatarBitMap());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         changeToolbar(repo);
     }
 
@@ -65,6 +70,7 @@ public class RepoCardFragment extends Fragment implements NavigationControllerGe
             menu.findItem(R.id.app_toolbar_search_view).setVisible(false);
             menu.findItem(R.id.app_toolbar_add_to_favorites).setVisible(false);
             menu.findItem(R.id.app_toolbar_remove_from_favorites).setVisible(false);
+            menu.findItem(R.id.app_toolbar_remove_all).setVisible(false);
             toolbar.setTitle(repo.getName());
             toolbar.setNavigationOnClickListener(v -> getNavController().popBackStack());
             AppRepository.getInstance().getRepoById(repo.getId(), new AppRepository.RepoGottenCallback() {

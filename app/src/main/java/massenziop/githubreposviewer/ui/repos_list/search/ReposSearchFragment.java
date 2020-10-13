@@ -110,6 +110,7 @@ public class ReposSearchFragment extends Fragment implements ViewModelStoreOwner
 
                 Menu menu = toolbar.getMenu();
                 MenuItem searchItem = menu.findItem(R.id.app_toolbar_search_view).setVisible(true);
+                menu.findItem(R.id.app_toolbar_remove_all).setVisible(false);
                 SearchView sv = (SearchView) searchItem.getActionView();
                 DrawerLayout drawerLayout = activity.findViewById(R.id.drawer_layout);
                 sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

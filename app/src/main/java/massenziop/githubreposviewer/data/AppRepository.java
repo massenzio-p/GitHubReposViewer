@@ -99,6 +99,12 @@ public class AppRepository {
 
     }
 
+    public void removeAllFavorites() {
+        ApplicationController.getInstance().getDbExecutor().execute(() -> {
+            getDB().reposDao().deleteAll();
+        });
+    }
+
     public interface RepoGottenCallback {
         void onRepoGotten(GitHubRepoModel repo);
     }

@@ -84,6 +84,12 @@ public class ReposFavoritesFragment extends Fragment implements NavigationContro
                 Menu menu = toolbar.getMenu();
                 MenuItem searchItem = menu.findItem(R.id.app_toolbar_search_view).setVisible(true);
                 SearchView sv = (SearchView) searchItem.getActionView();
+                MenuItem removeAll = menu.findItem(R.id.app_toolbar_remove_all)
+                        .setVisible(true);
+                removeAll.setOnMenuItemClickListener(v -> {
+                    AppRepository.getInstance().removeAllFavorites();
+                    return true;
+                });
                 DrawerLayout drawerLayout = activity.findViewById(R.id.drawer_layout);
                 sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
@@ -108,6 +114,7 @@ public class ReposFavoritesFragment extends Fragment implements NavigationContro
             }
         }
     }
+
     private void enableSwipeToAddFavorite() {
         SwipeRecyclerCallback swipeToDeleteCallback = new SwipeRecyclerCallback(true, getContext(), true) {
             @Override
@@ -132,4 +139,11 @@ public class ReposFavoritesFragment extends Fragment implements NavigationContro
         ReposListPagerFragmentDirections.RepoCardAction action = ReposListPagerFragmentDirections.repoCardAction(gitHubRepoModel);
         getNavController().navigate(action);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+
 }
